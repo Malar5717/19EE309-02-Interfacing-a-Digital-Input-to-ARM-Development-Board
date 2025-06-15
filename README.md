@@ -1,6 +1,8 @@
-# EXPERIMENT--02-INTEFACING-A-DIGITAL-INPUT-TO-ARM-DEVELOPMENT-BOARD
-## Aim: To Interface a Digital Input  (userpush button  ) to ARM   development board and write a  program to obtain  the data and flash the led  
-## Components required: STM32 CUBE IDE, ARM IOT development board,  STM programmer tool.
+# EXPERIMENT 02 : INTEFACING A DIGITAL INPUT TO ARM DEVELOPMENT BOARD
+## Aim: 
+To Interface a Digital Input  (userpush button  ) to ARM   development board and write a  program to obtain  the data and flash the led  
+## Components required: 
+STM32 CUBE IDE, ARM IOT development board,  STM programmer tool.
 ## Theory 
 The full form of an ARM is an advanced reduced instruction set computer (RISC) machine, and it is a 32-bit processor architecture expanded by ARM holdings. The applications of an ARM processor include several microcontrollers as well as processors. The architecture of an ARM processor was licensed by many corporations for designing ARM processor-based SoC products and CPUs. This allows the corporations to manufacture their products using ARM architecture. Likewise, all main semiconductor companies will make ARM-based SOCs such as Samsung, Atmel, TI etc.
 
@@ -51,12 +53,47 @@ The full form of an ARM is an advanced reduced instruction set computer (RISC) m
 
 
 ## STM 32 CUBE PROGRAM :
+```C
+#include "main.h"
+#include <stdbool.h>
+bool button_status;
+void led();
 
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+
+
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+
+  while (1)
+  {
+	  led();
+  }
+  /* USER CODE END 3 */
+}
+void led(){
+	button_status=HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13);
+	if (button_status==0){
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_SET);
+	}
+	else{
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET);
+	}
+	HAL_Delay(500);
+}
+```
 
 
 ## Output  :
- 
-## layout of the circuit 
+### OFF Condition:
+![IMG_9470](https://github.com/user-attachments/assets/49e396d9-28cd-4ccd-bbf3-bbb6baf4c2fd)
+### ON Condition:
+![IMG_9469](https://github.com/user-attachments/assets/5e5f3526-bcbc-4a64-822f-07bb60d0df68)
+
  
  
 ## Result :
